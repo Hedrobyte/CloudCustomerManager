@@ -1,0 +1,13 @@
+services:
+  angular-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'      # Limita o uso da CPU a 50%
+          memory: 512M      # Limita o uso de memória a 512MB
