@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://customer-manager-db.cbaa04mewcfs.us-east-1.rds.amazonaws.com:5432/customers
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - customer-network
+
+networks:
+  customer-network:
+    driver: bridge
