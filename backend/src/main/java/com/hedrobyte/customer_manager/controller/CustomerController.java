@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerController {
@@ -46,5 +46,15 @@ public class CustomerController {
         customerService.deleteCustomer(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<CustomerDTO>> searchCustomers(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String cpf) {
+
+        List<CustomerDTO> customers = customerService.searchCustomers(name, cpf);
+        return ResponseEntity.ok(customers);
+    }
+
 }
 

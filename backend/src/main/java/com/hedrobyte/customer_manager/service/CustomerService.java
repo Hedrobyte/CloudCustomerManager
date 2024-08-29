@@ -75,4 +75,23 @@ public class CustomerService {
         customer.setEmail(customerDTO.email());
         return customer;
     }
+
+    public List<CustomerDTO> searchCustomers(String name, String cpf) {
+        List<Customer> customers;
+
+        if (name != null && cpf != null) {
+            customers = customerRepository.findByNameContainingIgnoreCaseAndCpfContaining(name, cpf);
+        } else if (name != null) {
+            customers = customerRepository.findByNameContainingIgnoreCase(name);
+        } else if (cpf != null) {
+            customers = customerRepository.findByCpfContaining(cpf);
+        } else {
+            customers = customerRepository.findAll();
+        }
+
+        return customers.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
 }
